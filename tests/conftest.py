@@ -8,13 +8,12 @@ from applitools.selenium import (
     DeviceName)
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture
 def py_eyes():
     runner = VisualGridRunner(10)
     py_eyes = Eyes(runner)
     # You can get your api key from the Applitools dashboard
     api_key = os.environ["APPLITOOLS_API_KEY"]
-    print("API_KEY = " + api_key)
     py_eyes.configure.set_api_key(api_key)
 
     # create a new batch info instance and set it to the configuration
