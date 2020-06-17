@@ -10,6 +10,7 @@ You will find the full documentation [here](https://elsnoman.gitbook.io/pylenium
 - python 3: if not yet installed, follow [this](https://www.python.org/downloads/)
 - [pip](https://pypi.org/project/pip/) which is the Python package installer 
 - A virtual environment (virtualenv): instructions [here](https://elsnoman.gitbook.io/pylenium/getting-started/virtual-environments)
+- Chrome must be installed
 - Browser drivers like [Chrome Driver](http://chromedriver.chromium.org/downloads) (must be in your `PATH)`
 
 For Applitools you must have an account to use Eyes. See [Applitools](https://applitools.com/) website.
@@ -27,6 +28,7 @@ For more information see the [doc](https://applitools.com/docs/) or follow cours
 - Clone the project
 ```bash
 $ git clone https://github.com/StephaneColson/CrossBrowserApplitoolsHackaton.git
+$ cd CrossBrowserApplitoolsHackaton
 ```
 
 - Check Python version or [install it](https://www.python.org/downloads/)
@@ -35,11 +37,12 @@ $ python --version
 $ Python 3.7.6
 ```
 
-- pip3 install
+- Install virtualenv, Eyes-selenium and pylenium
 ```bash
 pip3 install virtualenv
 virtualenv .env
 source .env/bin/activate
+pip install eyes-selenium
 pip install pyleniumio
 ```
 
