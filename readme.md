@@ -17,7 +17,8 @@ For Applitools you must have an account to use Eyes. See [Applitools](https://ap
 You must set you APPLITOOLS_API_KEY environment key:
 ```bash
 $ export APPLITOOLS_API_KEY='<your_key>'
-``
+```
+
 where your_key is available in your Applitools Eyes Dashboard.
 For more information see the [doc](https://applitools.com/docs/) or follow courses on
 [Test Automation University](https://testautomationu.applitools.com/)
@@ -27,6 +28,7 @@ For more information see the [doc](https://applitools.com/docs/) or follow cours
 ```bash
 $ git clone https://github.com/StephaneColson/CrossBrowserApplitoolsHackaton.git
 ```
+
 - Check Python version or [install it](https://www.python.org/downloads/)
 ```bash
 $ python --version
