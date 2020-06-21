@@ -1,0 +1,40 @@
+name: ci-pylenium
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      SELENIUM_HUB_HOST: hub
+      TEST_HOST: testHost
+
+    services:
+      hub:
+        image: selenium/hub:3.141.59-20200525
+        ports:
+            - 4444:4444
+      firefox:
+        image: selenium/node-chrome:3.141.59-20200525
+        env:
+          HUB_HOST: hub
+          HUB_PORT: 4444
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Install test runner
+      run: |
+        pip install pytest
+    - name: Test traditional using pytest and containerized selenium hub
+      run: |
+        python -m pytest tests/TraditionalTestsV1.py --remote_url="http://localhost:4444/wd/hub"
