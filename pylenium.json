@@ -21,5 +21,10 @@
     "width": 1440,
     "height": 900,
     "orientation": "portrait"
+  },
+  "custom": {
+    "environment": {
+      "url": "https://demo.applitools.com/gridHackathonV1.html"
+    }
   }
 }

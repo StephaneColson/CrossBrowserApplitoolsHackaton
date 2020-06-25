@@ -7,6 +7,13 @@ from applitools.selenium import (
     BrowserType,
     DeviceName)
 
+toDisplayType = {
+    0: "MOBILE",
+    1: "TABLET",
+    2: "DESKTOP",
+}
+taskNumber = None
+
 
 @pytest.fixture
 def py_eyes():
@@ -33,3 +40,59 @@ def py_eyes():
     yield py_eyes
     all_test_results = runner.get_all_test_results(False)
     print(all_test_results)
+
+
+def getDisplayType(item):
+    Id = item.funcargs["displayType"] if "displayType" in item.fixturenames else -1
+    return toDisplayType.get(Id, "Invalid display type!")
+
+
+def logTaskReport(writer, py_config, test_case, item):
+    # Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
+    global taskNumber
+    if item.rep_call is None:
+        return
+    testName = test_case.name
+    testResult = "Pass" if item.rep_call != None and item.rep_call.passed else "Fail"
+    browserName = py_config.driver.browser
+    log = writer.log
+    p = {
+        "w": item.funcargs["width"] if "width" in item.fixturenames else "",
+        "h": item.funcargs["height"] if "height" in item.fixturenames else "",
+        "display": getDisplayType(item),
+    }
+    assertionError = ""
+    if item.rep_call.longrepr is not None and item.rep_call.longrepr.reprcrash is not None:
+        assertionError = item.rep_call.longrepr.reprcrash.message
+
+    domId = item.funcargs["location"] if "location" in item.fixturenames else None
+
+    if taskNumber is None:
+        taskNumber = 1
+    reportMessage = f"Test: {taskNumber}, Test Name: {testName} DOM Id:: {domId}, Browser: {browserName}," \
+                    f"Viewport: <{p['w']}x{p['h']}>, Device: {p['display']}, Status: {testResult} ({assertionError})"
+    taskNumber = taskNumber + 1
+
+    log(reportMessage)
+
+
+class ReportWriter:
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def log(self, string):
+        with open(self.file_path, 'a+') as file:
+            file.write(f'\n{string}')
+
+
+@pytest.fixture(scope='session')
+def reportWriter(test_run):
+    test_reporter_path = f'{test_run}/traditional-report.txt'
+    return ReportWriter(test_reporter_path)
+
+
+@pytest.fixture()
+def report_generator(request, test_case, py_config, reportWriter):
+    yield
+    logTaskReport(reportWriter, py_config, test_case, request.node)
+
