@@ -72,7 +72,7 @@ def test_top_banner_task1(py, report_generator, width, height, displayType, loca
 # Check that we only retrieve white results when filtering Black Shoes
 @pytest.mark.parametrize("width,height, displayType, location", TestData.forElement(HomePageMap.PRODUCT_GRID))
 def test_blackShoes_filter_task2(py, width, height, displayType, location):
-    filterPage = AppliFashionHomePage(py, width, height, displayType)
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     filterColorDomId = filterPage.getFilterColor('Black')
 
     filterBlack = py.get(filterColorDomId)
