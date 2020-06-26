@@ -49,7 +49,7 @@ def getDisplayType(item):
 
 def logTaskReport(writer, py_config, test_case, item):
     # Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
-    global taskNumber
+    #global taskNumber
     if item.rep_call is None:
         return
     testName = test_case.name
@@ -61,16 +61,16 @@ def logTaskReport(writer, py_config, test_case, item):
         "h": item.funcargs["height"] if "height" in item.fixturenames else "",
         "display": getDisplayType(item),
     }
-    assertionError = ""
+    assertionError = "" # not used, but could be added in report
     if item.rep_call.longrepr is not None and item.rep_call.longrepr.reprcrash is not None:
         assertionError = item.rep_call.longrepr.reprcrash.message
 
     domId = item.funcargs["location"] if "location" in item.fixturenames else None
 
-    if taskNumber is None:
-        taskNumber = 1
-    reportMessage = f"Test: {taskNumber}, Test Name: {testName} DOM Id:: {domId}, Browser: {browserName}," \
-                    f"Viewport: <{p['w']}x{p['h']}>, Device: {p['display']}, Status: {testResult} ({assertionError})"
+    # if taskNumber is None:
+    taskNumber = 1
+    reportMessage = f"Task: {taskNumber}, Test Name: {testName}, DOM Id: {domId}, Browser: {browserName}, " \
+                    f"Viewport: {p['w']}x{p['h']}, Device: {p['display']}, Status: {testResult}"
     taskNumber = taskNumber + 1
 
     log(reportMessage)
