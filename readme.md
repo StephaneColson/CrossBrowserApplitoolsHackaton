@@ -42,8 +42,8 @@ $ Python 3.7.6
 pip3 install virtualenv
 virtualenv .env
 source .env/bin/activate
-pip install eyes-selenium
-pip install pyleniumio
+pip install eyes-selenium==4.3.1
+pip install pyleniumio==1.8.1
 ```
 
 - Run the Modern Applitools Tests using Ultra Fast Grid
