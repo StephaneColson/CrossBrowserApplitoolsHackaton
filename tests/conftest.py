@@ -12,7 +12,6 @@ toDisplayType = {
     1: "TABLET",
     2: "DESKTOP",
 }
-taskNumber = 1
 
 
 @pytest.fixture
@@ -48,12 +47,14 @@ def getDisplayType(item):
 
 
 def logTaskReport(writer, py_config, test_case, item):
-    # Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
-    #global taskNumber
     if item.rep_call is None:
         return
-    testName = test_case.name
-    testResult = "Pass" if item.rep_call != None and item.rep_call.passed else "Fail"
+    # testName = test_case.name
+    testName = item.funcargs["testName"] if "testName" in item.fixturenames else test_case.name
+
+    taskNumber = "1" if test_case.name.find('task1') != -1 else "2"
+
+    testResult = "Pass" if item.rep_call is not None and item.rep_call.passed else "Fail"
     browserName = py_config.driver.browser
     log = writer.log
     p = {
@@ -61,7 +62,7 @@ def logTaskReport(writer, py_config, test_case, item):
         "h": item.funcargs["height"] if "height" in item.fixturenames else "",
         "display": getDisplayType(item),
     }
-    assertionError = "" # not used, but could be added in report
+    # not used, but assertion could be useful in report
     if item.rep_call.longrepr is not None and item.rep_call.longrepr.reprcrash is not None:
         assertionError = item.rep_call.longrepr.reprcrash.message
 

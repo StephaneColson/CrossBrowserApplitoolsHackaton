@@ -10,20 +10,22 @@ DESKTOP = 2
 class TestData:
     # (Width, Height, type of display (0, 1, 2) and element path?)
     @classmethod
-    def forElement(cls, cssPath):
+    def forElement(cls, cssPath, testName):
         return [
-            (375, 500, MOBILE, cssPath),
-            (767, 700, MOBILE, cssPath),
-            (768, 500, TABLET, cssPath),
-            (991, 700, TABLET, cssPath),
-            (992, 500, DESKTOP, cssPath),
-            (1200, 700, DESKTOP, cssPath)
+            (375, 500, MOBILE, cssPath, testName),
+            (767, 700, MOBILE, cssPath, testName),
+            (768, 500, TABLET, cssPath, testName),
+            (991, 700, TABLET, cssPath, testName),
+            (992, 500, DESKTOP, cssPath, testName),
+            (1200, 700, DESKTOP, cssPath, testName)
         ]
 
 
 # Check that search field is displayed on tablet and desktop, hidden on mobile
-@pytest.mark.parametrize("width,height,displayType,location", TestData.forElement(HomePageMap.SEARCH_FIELD))
-def test_search_field_task1(py, report_generator, width, height, displayType, location):
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.SEARCH_FIELD,
+                                             'Search field is displayed on tablet and desktop'))
+def test_search_field_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     searchField = homePage.getSearchField()
 
@@ -35,8 +37,10 @@ def test_search_field_task1(py, report_generator, width, height, displayType, lo
 
 
 # Check that wishlist icon (heart) is only displayed on Desktop
-@pytest.mark.parametrize("width,height,displayType,location", TestData.forElement(HomePageMap.WISHLIST_ICON))
-def test_wishlist_icon_task1(py, report_generator, width, height, displayType, location):
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.WISHLIST_ICON,
+                                             'Wishlist icon is displayed on desktop only'))
+def test_wishlist_icon_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     wishlistIcon = homePage.getWishlistIcon()
 
@@ -47,9 +51,11 @@ def test_wishlist_icon_task1(py, report_generator, width, height, displayType, l
         wishlistIcon.should().be_hidden()
 
 
-# Check that left filter column is visible on laptop, hidden on mobile and tablet
-@pytest.mark.parametrize("width,height,displayType,location", TestData.forElement(HomePageMap.FILTER_COLUMN))
-def test_filter_column_task1(py, report_generator, width, height, displayType, location):
+# Check that left filter column is visible on desktop, hidden on mobile and tablet
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.FILTER_COLUMN,
+                                             'Left filter column is displayed on desktop only'))
+def test_filter_column_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     filterColumn = homePage.getFilterColumn()
 
@@ -60,8 +66,10 @@ def test_filter_column_task1(py, report_generator, width, height, displayType, l
 
 
 # Check that div top banner is always displayed
-@pytest.mark.parametrize("width,height,displayType,location", TestData.forElement(HomePageMap.TOP_BANNER_IMAGE))
-def test_top_banner_task1(py, report_generator, width, height, displayType, location):
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.TOP_BANNER_IMAGE,
+                                             'Div top banner is always displayed'))
+def test_top_banner_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     topBannerImage = homePage.getTopBannerImage()
 
@@ -70,8 +78,10 @@ def test_top_banner_task1(py, report_generator, width, height, displayType, loca
 
 
 # Check that we only retrieve black results when filtering Black Shoes
-@pytest.mark.parametrize("width,height, displayType, location", TestData.forElement(HomePageMap.PRODUCT_GRID))
-def test_blackShoes_filter_task2(py, width, height, displayType, location):
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.PRODUCT_GRID,
+                                             'Search black shoes and check results'))
+def test_blackShoes_filter_task2(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
     if displayType != DESKTOP:
