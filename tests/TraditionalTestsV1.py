@@ -69,23 +69,21 @@ def test_top_banner_task1(py, report_generator, width, height, displayType, loca
     topBannerImage.should().be_visible()
 
 
-# Check that we only retrieve white results when filtering Black Shoes
+# Check that we only retrieve black results when filtering Black Shoes
 @pytest.mark.parametrize("width,height, displayType, location", TestData.forElement(HomePageMap.PRODUCT_GRID))
 def test_blackShoes_filter_task2(py, width, height, displayType, location):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
-    filterColorDomId = filterPage.getFilterColor('Black')
 
-    filterBlack = py.get(filterColorDomId)
-    filterBlack.click()
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter().click()
 
-    if filterBlack.is_checked():
-        py.get(filterPage.getFilterButton()).click()
-    else:
-        print("!! FilterBlack is not checked")
+    filterPage.checkBlackColorInFilter()
 
-    # Retrieve all products names contained in product_grid
+    filterPage.getFilterButton().click()
+
     productsFiltered = filterPage.getProductGrid()
 
     # @TODO: work with developers in order to have color of results in the DOM
     # Here, I just check that we only retrieve product_1 and product_8 and nothing else
-    # assert productsFiltered.children().length() == 2
+    # which might not be true in the real world where product list is changed
+    assert productsFiltered.children().length() == 2

@@ -12,7 +12,7 @@ toDisplayType = {
     1: "TABLET",
     2: "DESKTOP",
 }
-taskNumber = None
+taskNumber = 1
 
 
 @pytest.fixture
@@ -67,11 +67,8 @@ def logTaskReport(writer, py_config, test_case, item):
 
     domId = item.funcargs["location"] if "location" in item.fixturenames else None
 
-    # if taskNumber is None:
-    taskNumber = 1
     reportMessage = f"Task: {taskNumber}, Test Name: {testName}, DOM Id: {domId}, Browser: {browserName}, " \
                     f"Viewport: {p['w']}x{p['h']}, Device: {p['display']}, Status: {testResult}"
-    taskNumber = taskNumber + 1
 
     log(reportMessage)
 

@@ -8,8 +8,9 @@ class HomePageMap:
     FILTER_COLUMN = '#filter_col'
     TOP_BANNER_IMAGE = '.top_banner'
     PRODUCT_GRID = '#product_grid'
-    FILTER_COLORS_PREFIX = '#colors__'
+    FILTER_COLOR_BLACK = '#colors__Black'
     FILTER_BUTTON = '#filterBtn'
+    LEFT_SIDE_FILTER_ICON = '#ti-filter'
 
 
 class AppliFashionHomePage:
@@ -26,8 +27,10 @@ class AppliFashionHomePage:
             HomePageMap.FILTER_COLUMN: lambda: self.py.get(HomePageMap.FILTER_COLUMN),
             HomePageMap.TOP_BANNER_IMAGE: lambda: self.py.get(HomePageMap.TOP_BANNER_IMAGE),
             HomePageMap.PRODUCT_GRID: lambda: self.py.get(HomePageMap.PRODUCT_GRID),
-            HomePageMap.FILTER_COLORS_PREFIX: lambda: self.py.get(HomePageMap.FILTER_COLORS_PREFIX),
+            HomePageMap.FILTER_COLOR_BLACK: lambda: self.py.get(HomePageMap.FILTER_COLOR_BLACK),
             HomePageMap.FILTER_BUTTON: lambda: self.py.get(HomePageMap.FILTER_BUTTON),
+            HomePageMap.LEFT_SIDE_FILTER_ICON: lambda: self.py.get(HomePageMap.LEFT_SIDE_FILTER_ICON)
+
         }
 
     def __find(self, path):
@@ -48,8 +51,19 @@ class AppliFashionHomePage:
     def getProductGrid(self):
         return self.__find(HomePageMap.PRODUCT_GRID)
 
-    def getFilterColor(self, color):
-        return self.__find(HomePageMap.FILTER_COLORS_PREFIX)+color
+    def getBlackColorInFilter(self):
+        return self.__find(HomePageMap.FILTER_COLOR_BLACK)
+
+    def checkBlackColorInFilter(self):
+        # py.wait(use_py=True).sleep(3)
+        x = self.py.webdriver
+        # We need to wait for the filter menu to be displayed
+        self.py.wait(3, use_py=True).until(lambda x: x.find_element_by_id('filter_col').is_displayed())
+        return self.getBlackColorInFilter().check()
 
     def getFilterButton(self):
         return self.__find(HomePageMap.FILTER_BUTTON)
+
+    def openLeftSideFilter(self):
+        return self.__find(HomePageMap.LEFT_SIDE_FILTER_ICON)
+
