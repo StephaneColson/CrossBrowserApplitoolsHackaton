@@ -52,7 +52,14 @@ def logTaskReport(writer, py_config, test_case, item):
     # testName = test_case.name
     testName = item.funcargs["testName"] if "testName" in item.fixturenames else test_case.name
 
-    taskNumber = "1" if test_case.name.find('task1') != -1 else "2"
+    if test_case.name.find('task1') != -1:
+        taskNumber = "1"
+    elif test_case.name.find('task2') != -1:
+        taskNumber = "2"
+    elif test_case.name.find('task3') != -1:
+        taskNumber = "3"
+    else:
+        taskNumber = "?"
 
     testResult = "Pass" if item.rep_call is not None and item.rep_call.passed else "Fail"
     browserName = py_config.driver.browser

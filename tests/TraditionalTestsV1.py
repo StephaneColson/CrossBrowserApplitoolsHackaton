@@ -1,4 +1,4 @@
-import pytest
+import pytest, re
 
 from pages.HomePage import AppliFashionHomePage, HomePageMap
 
@@ -79,21 +79,139 @@ def test_top_banner_task1(py, report_generator, width, height, displayType, loca
 
 # Check that we only retrieve black results when filtering Black Shoes
 @pytest.mark.parametrize("width,height,displayType,location,testName",
-                         TestData.forElement(HomePageMap.PRODUCT_GRID,
+                         TestData.forElement(HomePageMap.FILTER_COLOR_BLACK,
                                              'Search black shoes and check results'))
 def test_blackShoes_filter_task2(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
     if displayType != DESKTOP:
-        filterPage.openLeftSideFilter().click()
+        filterPage.openLeftSideFilter()
 
-    filterPage.checkBlackColorInFilter()
-
-    filterPage.getFilterButton().click()
-
-    productsFiltered = filterPage.getProductGrid()
+    productsFiltered = filterPage.getBlackColorProducts()
 
     # @TODO: work with developers in order to have color of results in the DOM
     # Here, I just check that we only retrieve product_1 and product_8 and nothing else
     # which might not be true in the real world where product list is changed
     assert productsFiltered.children().length() == 2
+
+
+# Check that reference of the product is visible
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.SMALL_REFERENCE_ID,
+                                             'Check that reference of the product '
+                                             'is visible in black shoes detail page'))
+def test_blackShoesDetail_reference_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+
+    filterPage.gotoFirstBlackColorProduct()
+
+    # "displayed" means that the element is in the DOM and has a size
+    #  greater than zero such that it is visible to the user.
+    # @Todo: so it returns true even if element is not visible (white on white) :/
+    assert filterPage.getReference().is_displayed()
+
+
+# Check that default size is Small (S)
+# @Todo But maybe we should use a list of available sizes !?
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.NICE_SELECT_SIZE,
+                                             'Check that default size of the product is \'Small (S)\' '
+                                             'in black shoe detail page'))
+def test_blackShoesDetail_defaultSize_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+
+    filterPage.gotoFirstBlackColorProduct()
+    filterPage.getDefaultSize().should().have_text('Small (S)')
+
+
+# Check that price is correctly displayed with decimals
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.NEW_PRICE_LABEL,
+                                             'Check that price of the product contains .00 in black shoe detail page'))
+def test_blackShoesDetail_price_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+
+    filterPage.gotoFirstBlackColorProduct()
+    # Using a regexp to check that price starts with $, then several digit, then a '.' and 2 more digits
+    assert re.search("[$][0-9]+.[0-9]{2}", filterPage.getPrize()) is not None
+
+
+# Check that topTools icons (heart, profile and basket) don't overlap
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.PROFILE_ICON,
+                                             'Check that topTools icons (heart, profile and basket) '
+                                             'don t overlap in black shoe detail page'))
+def test_blackShoesDetail_topToolsIcons_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+
+    filterPage.gotoFirstBlackColorProduct()
+    assert filterPage.checkTopToolsIconsNotOverlapping()
+
+
+# Check that rating stars and reviews are not overlapping
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.RATING_COUNT,
+                                             'Check that rating stars and reviews '
+                                             'are not overlapping in black shoe detail page'))
+def test_blackShoesDetail_ratingStarReviews_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+
+    filterPage.gotoFirstBlackColorProduct()
+    # @Todo: ID has been changed from "#EM____82" (v1) to "#EM__ratingcoun__82" (v2), that's bad!
+    # Issue (33934) created : 3) Hackathon – App issue: Rating count ID has been changed between v1 and v2
+    # So we should comment/unncomment RATING_COUNT in HomePage depending on versioin tested
+    assert filterPage.checkRatingReviewOverlapping()
+
+
+# Check default quantity is 1
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.DEFAULT_QUANTITY,
+                                             'Check default quantity is 1 in black shoe detail page'))
+def test_blackShoesDetail_quantityAddToCart_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+    filterPage.gotoFirstBlackColorProduct()
+
+    assert filterPage.getDefaultQuantity() == '1'
+
+# Check that Add to Cart button is enabled by default
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.BUTTON_ADD_TO_CART,
+                                             'Check that Add to Cart button is enabled by default '
+                                             'in black shoe detail page'))
+def test_blackShoesDetail_addToCardButton_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+    filterPage.gotoFirstBlackColorProduct()
+
+    assert filterPage.getButtonAddToCart().is_enabled()
+
+# Check product preview display
+@pytest.mark.parametrize("width,height,displayType,location,testName",
+                         TestData.forElement(HomePageMap.PRODUCT_GRID,
+                                             'Check that product preview '
+                                             'is displayed in black shoe detail page'))
+def test_blackShoesDetail_productPrevDisplay_task3(py, report_generator, width, height, displayType, location, testName):
+    filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
+
+    if displayType != DESKTOP:
+        filterPage.openLeftSideFilter()
+    filterPage.gotoFirstBlackColorProduct()
+
+    styleShoeImage = filterPage.getShoeImage()
+    print('Style: ' + styleShoeImage)
+    assert 'url' in styleShoeImage
