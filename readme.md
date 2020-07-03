@@ -50,15 +50,34 @@ pip install pyleniumio==1.8.1
 ```bash
 python -m pytest tests/ModernTestsV1.py
 ```
-Results are retrieved in your Applitools Eyes Dashboard page.
+
 
 - Run the Traditional Selenium Tests
 ```bash
-python -m pytest tests/TraditionalTestsV1.py
+python -m pytest tests/TraditionalTestsV1.py`
 ```
-Results are retrieved in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
-depending on version used: Resp. https://demo.applitools.com/gridHackathonV1.html or 
-https://demo.applitools.com/gridHackathonV2.html
+You can use this additionals arguments:
+- `--browser '[Browser]'` where Browser can be chrome, firefox or edge
+- `--options 'headless,incognito'`
+- `--verbose`
+- `-n [NUMBER]` for parallel testing 
+- `-m taskX` to select the run of task1, task2 or task3
+
+## Results
+Results for Modern approach are retrieved in your Applitools Eyes Dashboard page.
+
+Results for Traditional approach goes in `traditional-report.txt`with this syntax:
+```
+Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
+```
+Previous run with several browsers are copied in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
+depending on version used: https://demo.applitools.com/gridHackathonV1.html` or 
+`https://demo.applitools.com/gridHackathonV2.html`
+
+You will also find screenshots (for failures: `test_failed.png`) and `test_log.txt
+ in `test_results`: one sub-folder per test
+
+
 
 Enjoy!
 

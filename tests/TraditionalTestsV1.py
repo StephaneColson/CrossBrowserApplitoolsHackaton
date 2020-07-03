@@ -25,6 +25,7 @@ class TestData:
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.SEARCH_FIELD,
                                              'Search field is displayed on tablet and desktop'))
+@pytest.mark.task1
 def test_search_field_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     searchField = homePage.getSearchField()
@@ -40,6 +41,7 @@ def test_search_field_task1(py, report_generator, width, height, displayType, lo
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.WISHLIST_ICON,
                                              'Wishlist icon is displayed on desktop only'))
+@pytest.mark.task1
 def test_wishlist_icon_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     wishlistIcon = homePage.getWishlistIcon()
@@ -55,6 +57,7 @@ def test_wishlist_icon_task1(py, report_generator, width, height, displayType, l
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.FILTER_COLUMN,
                                              'Left filter column is displayed on desktop only'))
+@pytest.mark.task1
 def test_filter_column_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     filterColumn = homePage.getFilterColumn()
@@ -69,6 +72,7 @@ def test_filter_column_task1(py, report_generator, width, height, displayType, l
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.TOP_BANNER_IMAGE,
                                              'Div top banner is always displayed'))
+@pytest.mark.task1
 def test_top_banner_task1(py, report_generator, width, height, displayType, location, testName):
     homePage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     topBannerImage = homePage.getTopBannerImage()
@@ -81,6 +85,7 @@ def test_top_banner_task1(py, report_generator, width, height, displayType, loca
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.FILTER_COLOR_BLACK,
                                              'Search black shoes and check results'))
+@pytest.mark.task2
 def test_blackShoes_filter_task2(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
@@ -100,6 +105,7 @@ def test_blackShoes_filter_task2(py, report_generator, width, height, displayTyp
                          TestData.forElement(HomePageMap.SMALL_REFERENCE_ID,
                                              'Check that reference of the product '
                                              'is visible in black shoes detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_reference_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     if displayType != DESKTOP:
@@ -119,6 +125,7 @@ def test_blackShoesDetail_reference_task3(py, report_generator, width, height, d
                          TestData.forElement(HomePageMap.NICE_SELECT_SIZE,
                                              'Check that default size of the product is \'Small (S)\' '
                                              'in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_defaultSize_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     if displayType != DESKTOP:
@@ -132,6 +139,7 @@ def test_blackShoesDetail_defaultSize_task3(py, report_generator, width, height,
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.NEW_PRICE_LABEL,
                                              'Check that price of the product contains .00 in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_price_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     if displayType != DESKTOP:
@@ -147,6 +155,7 @@ def test_blackShoesDetail_price_task3(py, report_generator, width, height, displ
                          TestData.forElement(HomePageMap.PROFILE_ICON,
                                              'Check that topTools icons (heart, profile and basket) '
                                              'don t overlap in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_topToolsIcons_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     if displayType != DESKTOP:
@@ -161,6 +170,7 @@ def test_blackShoesDetail_topToolsIcons_task3(py, report_generator, width, heigh
                          TestData.forElement(HomePageMap.RATING_COUNT,
                                              'Check that rating stars and reviews '
                                              'are not overlapping in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_ratingStarReviews_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
     if displayType != DESKTOP:
@@ -177,6 +187,7 @@ def test_blackShoesDetail_ratingStarReviews_task3(py, report_generator, width, h
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.DEFAULT_QUANTITY,
                                              'Check default quantity is 1 in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_quantityAddToCart_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
@@ -186,11 +197,13 @@ def test_blackShoesDetail_quantityAddToCart_task3(py, report_generator, width, h
 
     assert filterPage.getDefaultQuantity() == '1'
 
+
 # Check that Add to Cart button is enabled by default
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.BUTTON_ADD_TO_CART,
                                              'Check that Add to Cart button is enabled by default '
                                              'in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_addToCardButton_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
@@ -200,11 +213,13 @@ def test_blackShoesDetail_addToCardButton_task3(py, report_generator, width, hei
 
     assert filterPage.getButtonAddToCart().is_enabled()
 
+
 # Check product preview display
 @pytest.mark.parametrize("width,height,displayType,location,testName",
                          TestData.forElement(HomePageMap.PRODUCT_GRID,
                                              'Check that product preview '
                                              'is displayed in black shoe detail page'))
+@pytest.mark.task3
 def test_blackShoesDetail_productPrevDisplay_task3(py, report_generator, width, height, displayType, location, testName):
     filterPage = AppliFashionHomePage(py, width, height, py.config.custom['environment']['url'])
 
