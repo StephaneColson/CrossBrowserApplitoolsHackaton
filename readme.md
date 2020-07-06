@@ -75,7 +75,7 @@ Previous run with several browsers are copied in `Traditional-V1-TestResults.txt
 depending on version used: https://demo.applitools.com/gridHackathonV1.html` or 
 `https://demo.applitools.com/gridHackathonV2.html`
 
-You will also find screenshots (for failures: `test_failed.png`) and `test_log.txt
+You will also find screenshots (for failures: `test_failed.png`) and `test_log.txt`
  in `test_results`: one sub-folder per test
 
 
