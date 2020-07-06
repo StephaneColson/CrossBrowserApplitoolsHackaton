@@ -46,19 +46,25 @@ pip install eyes-selenium==4.3.1
 pip install pyleniumio==1.8.1
 ```
 
-- Run the Modern Applitools Tests using Ultra Fast Grid
+- Run the V1 Modern Applitools Tests using Ultra Fast Grid
 ```bash
-python -m pytest tests/ModernTestsV1.py
+python -m pytest TestsV1/tests/ModernTestsV1.py
 ```
+
+- Run the V2 Modern Applitools Tests using Ultra Fast Grid
+```bash
+python -m pytest TestsV2/tests/ModernTestsV2  .py
+```
+
 
 - Run the V1 Traditional Selenium Tests
 ```bash
-python -m pytest tests/TraditionalTestV1/TraditionalTestsV1.py
+python -m pytest TestsV1/tests/TraditionalTestsV1.py
 ```
 
 - Run the V2 Traditional Selenium Tests
 ```bash
-python -m pytest tests/TraditionalTestV2/TraditionalTestsV2.py
+python -m pytest TestsV2/tests/TraditionalTestsV2.py
 ```
 
 You can use this additionals arguments:
