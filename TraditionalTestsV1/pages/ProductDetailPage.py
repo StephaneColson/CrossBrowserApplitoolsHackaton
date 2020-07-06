@@ -7,8 +7,7 @@ class ProductDetailPageMap(GlobalPageMap):
     NICE_SELECT_SIZE = '.nice-select'
     NEW_PRICE_LABEL = '#new_price'
     FIFTH_STAR = '#I__iconstar__81'
-    # RATING_COUNT = '#EM____82'  # For V1
-    RATING_COUNT = '#EM__ratingcoun__82'  # For V2
+    RATING_COUNT = '#EM____82'
     DEFAULT_QUANTITY = '#quantity_1'
     BUTTON_ADD_TO_CART = '#A__btn__114'
 

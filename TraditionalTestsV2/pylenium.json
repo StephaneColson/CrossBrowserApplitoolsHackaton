@@ -24,8 +24,8 @@
   },
   "custom": {
     "environment": {
-      "homeUrl": "https://demo.applitools.com/gridHackathonV1.html",
-      "productDetailUrl": "https://demo.applitools.com/gridHackathonProductDetailsV1.html"
+      "homeUrl": "https://demo.applitools.com/gridHackathonV2.html",
+      "productDetailUrl": "https://demo.applitools.com/gridHackathonProductDetailsV2.html"
     }
   }
 }

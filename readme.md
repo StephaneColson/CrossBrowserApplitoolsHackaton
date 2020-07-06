@@ -51,10 +51,16 @@ pip install pyleniumio==1.8.1
 python -m pytest tests/ModernTestsV1.py
 ```
 
-- Run the Traditional Selenium Tests
+- Run the V1 Traditional Selenium Tests
 ```bash
-python -m pytest tests/TraditionalTestsV1.py`
+python -m pytest tests/TraditionalTestV1/TraditionalTestsV1.py
 ```
+
+- Run the V2 Traditional Selenium Tests
+```bash
+python -m pytest tests/TraditionalTestV2/TraditionalTestsV2.py
+```
+
 You can use this additionals arguments:
 - `--browser '[Browser]'` where Browser can be chrome, firefox or edge
 - `--options 'headless,incognito'`
@@ -67,13 +73,13 @@ Results for Modern approach are retrieved in your Applitools Eyes Dashboard page
 
 Results for Traditional approach goes in `traditional-report.txt` with this syntax:
 ```
-Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail> (Assertion Error)
+Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
 ```
-I added the (Assertion Error) to make failure easier to understand.
 
-Previous run with several browsers are copied in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
+Previous run with several browsers (Chrome and Firefox) are copied in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
 depending on version used: https://demo.applitools.com/gridHackathonV1.html` or 
-`https://demo.applitools.com/gridHackathonV2.html`
+`https://demo.applitools.com/gridHackathonV2.html` (and `Traditional-V2-TestResultsWithAssertions.txt` with assertions errors
+at the end of failure lines)
 
 You will also find screenshots (for failures: `test_failed.png`) and `test_log.txt`
  in `test_results`: one sub-folder per test
