@@ -51,7 +51,6 @@ pip install pyleniumio==1.8.1
 python -m pytest tests/ModernTestsV1.py
 ```
 
-
 - Run the Traditional Selenium Tests
 ```bash
 python -m pytest tests/TraditionalTestsV1.py`
@@ -66,10 +65,12 @@ You can use this additionals arguments:
 ## Results
 Results for Modern approach are retrieved in your Applitools Eyes Dashboard page.
 
-Results for Traditional approach goes in `traditional-report.txt`with this syntax:
+Results for Traditional approach goes in `traditional-report.txt` with this syntax:
 ```
-Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail>
+Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, Viewport: <Width x Height>, Device<Device type>, Status: <Pass | Fail> (Assertion Error)
 ```
+I added the (Assertion Error) to make failure easier to understand.
+
 Previous run with several browsers are copied in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
 depending on version used: https://demo.applitools.com/gridHackathonV1.html` or 
 `https://demo.applitools.com/gridHackathonV2.html`
