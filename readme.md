@@ -53,7 +53,7 @@ python -m pytest TestsV1/tests/ModernTestsV1.py
 
 - Run the V2 Modern Applitools Tests using Ultra Fast Grid
 ```bash
-python -m pytest TestsV2/tests/ModernTestsV2  .py
+python -m pytest TestsV2/tests/ModernTestsV2.py
 ```
 
 
