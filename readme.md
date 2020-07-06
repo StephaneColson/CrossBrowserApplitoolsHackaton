@@ -83,8 +83,8 @@ Task: <Task Number>, Test Name: <Test Name>, DOM Id:: <id>, Browser: <Browser>, 
 ```
 
 Previous run with several browsers (Chrome and Firefox) are copied in `Traditional-V1-TestResults.txt` and `Traditional-V2-TestResults.txt`
-depending on version used: https://demo.applitools.com/gridHackathonV1.html` or 
-`https://demo.applitools.com/gridHackathonV2.html` (and `Traditional-V2-TestResultsWithAssertions.txt` with assertions errors
+depending on version used: 
+`https://demo.applitools.com/gridHackathonV1.html` or  `https://demo.applitools.com/gridHackathonV2.html` (and `Traditional-V2-TestResultsWithAssertions.txt` with assertions errors
 at the end of failure lines)
 
 You will also find screenshots (for failures: `test_failed.png`) and `test_log.txt`
