@@ -69,14 +69,17 @@ def logTaskReport(writer, py_config, test_case, item):
         "h": item.funcargs["height"] if "height" in item.fixturenames else "",
         "display": getDisplayType(item),
     }
-    assertionError = ""
-    if item.rep_call.longrepr is not None and item.rep_call.longrepr.reprcrash is not None:
-        assertionError = item.rep_call.longrepr.reprcrash.message
+    # assertionError = ""
+    # if item.rep_call.longrepr is not None and item.rep_call.longrepr.reprcrash is not None:
+    #     assertionError = item.rep_call.longrepr.reprcrash.message
 
     domId = item.funcargs["location"] if "location" in item.fixturenames else None
 
+    # reportMessage = f"Task: {taskNumber}, Test Name: {testName}, DOM Id: {domId}, Browser: {browserName}, " \
+    #                 f"Viewport: {p['w']}x{p['h']}, Device: {p['display']}, Status: {testResult} ({assertionError})"
+
     reportMessage = f"Task: {taskNumber}, Test Name: {testName}, DOM Id: {domId}, Browser: {browserName}, " \
-                    f"Viewport: {p['w']}x{p['h']}, Device: {p['display']}, Status: {testResult} ({assertionError})"
+                    f"Viewport: {p['w']}x{p['h']}, Device: {p['display']}, Status: {testResult}"
 
     log(reportMessage)
 
