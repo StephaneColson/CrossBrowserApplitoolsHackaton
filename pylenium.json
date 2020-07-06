@@ -1,6 +1,6 @@
 {
   "driver": {
-    "browser": "chrome",
+    "browser": "firefox",
     "remote_url": "",
     "wait_time": 10,
     "page_load_wait_time": 0,
@@ -24,7 +24,8 @@
   },
   "custom": {
     "environment": {
-      "url": "https://demo.applitools.com/gridHackathonV1.html"
+      "homeUrl": "https://demo.applitools.com/gridHackathonV1.html",
+      "productDetailUrl": "https://demo.applitools.com/gridHackathonProductDetailsV1.html"
     }
   }
 }
