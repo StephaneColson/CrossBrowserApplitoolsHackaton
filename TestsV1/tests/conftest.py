@@ -102,5 +102,5 @@ def reportWriter(test_run):
 @pytest.fixture()
 def report_generator(request, test_case, py_config, reportWriter):
     yield
-    logTaskReport(reportWriter, py_config, test_case, request.node)
+    # logTaskReport(reportWriter, py_config, test_case, request.node)
 
